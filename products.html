@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goal Mystery Pack — Our Packs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #B91C1C;
+    --deep-red: #7F1D1D;
+    --navy: #0F172A;
+    --electric-blue: #2563EB;
+    --royal-blue: #1D4ED8;
+    --white: #FFFFFF;
+    --off-white: #F8FAFC;
+    --gold: #F59E0B;
+    --light-gray: #E2E8F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ── TOP NAV ── */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(15,23,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .top-nav .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+
+  .top-nav .logo .red { color: var(--crimson); }
+
+  .top-nav .back-link {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.3s;
+  }
+
+  .top-nav .back-link:hover { color: var(--white); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 120px 20px 40px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--navy) 0%, #1E293B 50%, var(--deep-red) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 72px);
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-header h1 .accent { color: var(--crimson); }
+
+  .page-header p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── CATEGORY TABS ── */
+  .category-tabs {
+    position: sticky;
+    top: 60px;
+    z-index: 90;
+    background: rgba(15,23,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-tab {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .category-tab:hover { color: rgba(255,255,255,0.7); }
+  .category-tab.active {
+    color: var(--white);
+    border-bottom-color: var(--crimson);
+  }
+
+  /* ── CATEGORY SECTIONS ── */
+  .category-section {
+    padding: 60px 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: none;
+  }
+
+  .category-section.active { display: block; }
+
+  .category-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--electric-blue);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .category-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 4vw, 48px);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .category-section > p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+
+  /* ── SUB-CATEGORY LABEL ── */
+  .sub-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sub-label .emoji { font-size: 24px; }
+
+  /* ── PRODUCT CARDS GRID ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .product-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+
+  .product-card-banner {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to top, var(--navy), transparent);
+  }
+
+  .product-card-body {
+    padding: 20px 24px 24px;
+  }
+
+  .product-card-body .league-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .product-card-body h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .product-card-body .description {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .product-card-body .includes {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .product-card-body .includes strong {
+    color: rgba(255,255,255,0.55);
+    display: block;
+    margin-bottom: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    font-size: 13px;
+  }
+
+  .product-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-card-footer .price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+  }
+
+  .product-card-footer .cta {
+    padding: 10px 24px;
+    background: var(--crimson);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .product-card-footer .cta:hover {
+    background: #DC2626;
+    transform: translateY(-1px);
+  }
+
+  /* ── COUNTRY PREVIEW GRID (World Cup) ── */
+  .preview-jerseys {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .preview-jersey {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ── BANNER COLORS PER THEME ── */
+  .banner-ligue1 { background: linear-gradient(135deg, #1B2A4A 0%, #0D1F3C 50%, #D2A100 100%); }
+  .banner-seriea { background: linear-gradient(135deg, #0E4429 0%, #1A1A2E 50%, #16213E 100%); }
+  .banner-bundesliga { background: linear-gradient(135deg, #D32F2F 0%, #1A1A2E 50%, #F5F5F5 100%); }
+  .banner-liga { background: linear-gradient(135deg, #FF6F00 0%, #1A1A2E 50%, #E53935 100%); }
+  .banner-worldcup { background: linear-gradient(135deg, #1A237E 0%, #0D47A1 40%, #FFD600 100%); }
+
+  /* Club banners */
+  .banner-psg { background: linear-gradient(135deg, #004170 0%, #0D1B3E 50%, #DA291C 100%); }
+  .banner-liverpool { background: linear-gradient(135deg, #C8102E 0%, #6A0E1E 50%, #1A1A2E 100%); }
+  .banner-real { background: linear-gradient(135deg, #FAFAFA 0%, #D4AF37 30%, #1A1A2E 100%); }
+  .banner-barca { background: linear-gradient(135deg, #A50044 0%, #1A1A2E 50%, #004D98 100%); }
+  .banner-atletico { background: linear-gradient(135deg, #CB3524 0%, #1A1A2E 50%, #272E61 100%); }
+  .banner-inter { background: linear-gradient(135deg, #010E80 0%, #1A1A2E 50%, #000000 100%); }
+  .banner-chelsea { background: linear-gradient(135deg, #034694 0%, #1A1A2E 50%, #DBA111 100%); }
+  .banner-arsenal { background: linear-gradient(135deg, #EF0107 0%, #6A0E1E 50%, #1A1A2E 100%); }
+  .banner-city { background: linear-gradient(135deg, #6CABDD 0%, #1A1A2E 50%, #1C2C5B 100%); }
+
+  /* Tag colors */
+  .tag-ligue1 { background: rgba(210,161,0,0.2); color: #FFD54F; }
+  .tag-seriea { background: rgba(14,68,41,0.3); color: #66BB6A; }
+  .tag-bundesliga { background: rgba(211,47,47,0.2); color: #EF5350; }
+  .tag-liga { background: rgba(255,111,0,0.2); color: #FFA726; }
+  .tag-worldcup { background: rgba(26,35,126,0.3); color: #7986CB; }
+  .tag-club { background: rgba(37,99,235,0.2); color: #60A5FA; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060A13;
+    padding: 24px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .category-tab { padding: 14px 20px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<nav class="top-nav">
+  <a href="index.html" class="logo">GOAL <span class="red">MYSTERY PACK</span></a>
+  <a href="index.html" class="back-link">← Back to Home</a>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+  <h1>Choose your <span class="accent">Pack</span></h1>
+  <p>Explore all our mystery boxes and find the one that fits your football passion.</p>
+</div>
+
+<!-- ── CATEGORY TABS ── -->
+<div class="category-tabs">
+  <button class="category-tab active" data-tab="classic">⚽ Mystery Pack Classic</button>
+  <button class="category-tab" data-tab="club">🏆 Club Pack</button>
+  <button class="category-tab" data-tab="premium">👑 Premium Collector</button>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ── MYSTERY PACK CLASSIC ── -->
+<!-- ════════════════════════════════════════════ -->
+<div class="category-section active" id="classic">
+  <div class="category-section-title">Mystery Pack Classic — $39</div>
+  <h2>League editions</h2>
+  <p>One random jersey from one of Europe's elite leagues. Pick a league, get the surprise.</p>
+
+  <!-- ── LEAGUE BOXES ── -->
+  <div class="sub-label"><span class="emoji">🇫🇷</span> Ligue 1 · Serie A · Bundesliga · La Liga</div>
+
+  <div class="products-grid">
+
+    <!-- Ligue 1 -->
+    <div class="product-card">
+      <div class="product-card-banner banner-ligue1">🇫🇷</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-ligue1">Ligue 1</span>
+        <h3>Mystery Pack Ligue 1</h3>
+        <p class="description">Le championnat du flair et de la vitesse. Reçois un maillot aléatoire parmi les clubs de Ligue 1 — PSG, OM, OL, Monaco, Lille et bien d'autres.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Ligue 1 jersey (random club, random season) · Home, away or third kit · Size of your choice
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$39</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Serie A -->
+    <div class="product-card">
+      <div class="product-card-banner banner-seriea">🇮🇹</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-seriea">Serie A</span>
+        <h3>Mystery Pack Serie A</h3>
+        <p class="description">Tactical elegance and Italian craftsmanship. From the San Siro to the Olimpico — discover a jersey from the Calcio's finest.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Serie A jersey (random club, random season) · Clubs include Juventus, AC Milan, Inter, Napoli, Roma & more
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$39</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundesliga -->
+    <div class="product-card">
+      <div class="product-card-banner banner-bundesliga">🇩🇪</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-bundesliga">Bundesliga</span>
+        <h3>Mystery Pack Bundesliga</h3>
+        <p class="description">German engineering meets football passion. The league with the best atmosphere — get a jersey from the Bundesliga's powerhouses.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Bundesliga jersey (random club, random season) · Bayern, Dortmund, Leverkusen, Leipzig & more
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$39</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- La Liga -->
+    <div class="product-card">
+      <div class="product-card-banner banner-liga">🇪🇸</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-liga">La Liga</span>
+        <h3>Mystery Pack La Liga</h3>
+        <p class="description">Tiki-taka, passion and sun-soaked stadiums. Land a jersey from the league that gave us legends — from El Clasico to the Seville derby.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic La Liga jersey (random club, random season) · Real Madrid, Barcelona, Atletico, Sevilla, Betis & more
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$39</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── WORLD CUP EDITION ── -->
+  <div class="sub-label"><span class="emoji">🌍</span> World Cup Edition</div>
+
+  <div class="products-grid">
+
+    <div class="product-card" style="grid-column: 1 / -1; max-width: 100%;">
+      <div class="product-card-banner banner-worldcup" style="height: 200px;">🏆🌍</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-worldcup">World Cup Edition</span>
+        <h3>Mystery Pack World Cup</h3>
+        <p class="description">Represent your nation — or discover a new one. Receive a random national team jersey from the greatest football nations. Every box is a trip around the world.</p>
+        <div class="includes">
+          <strong>National teams included</strong>
+        </div>
+        <div class="preview-jerseys">
+          <div class="preview-jersey" title="France">🇫🇷</div>
+          <div class="preview-jersey" title="Brazil">🇧🇷</div>
+          <div class="preview-jersey" title="Spain">🇪🇸</div>
+          <div class="preview-jersey" title="Portugal">🇵🇹</div>
+          <div class="preview-jersey" title="England">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+          <div class="preview-jersey" title="Germany">🇩🇪</div>
+        </div>
+        <div style="margin-top: 20px;">
+          <div class="product-card-footer">
+            <div class="price">$39</div>
+            <button class="cta">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ── CLUB PACK ── -->
+<!-- ════════════════════════════════════════════ -->
+<div class="category-section" id="club">
+  <div class="category-section-title">Club Pack — $49</div>
+  <h2>Pick your club</h2>
+  <p>Choose your favorite club, receive a surprise jersey from recent seasons. Home, away or third kit — you never know.</p>
+
+  <div class="sub-label"><span class="emoji">🏟️</span> All clubs</div>
+
+  <div class="products-grid">
+
+    <!-- PSG -->
+    <div class="product-card">
+      <div class="product-card-banner banner-psg">⚜️</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">Ligue 1</span>
+        <h3>Club Pack — PSG</h3>
+        <p class="description">Parisian glamour meets football excellence. From the Parc des Princes to the world stage — discover a PSG jersey from recent seasons.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic PSG jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Liverpool -->
+    <div class="product-card">
+      <div class="product-card-banner banner-liverpool">🔴</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">Premier League</span>
+        <h3>Club Pack — Liverpool</h3>
+        <p class="description">You'll Never Walk Alone. The Kop's roar, the European nights, the relentless pressing — wear the shirt of one of football's most storied clubs.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Liverpool jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real Madrid -->
+    <div class="product-card">
+      <div class="product-card-banner banner-real">👑</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">La Liga</span>
+        <h3>Club Pack — Real Madrid</h3>
+        <p class="description">15 Champions League titles. The most decorated club in history. Pure white, pure legacy — get a Real Madrid jersey and wear royalty.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Real Madrid jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barcelona -->
+    <div class="product-card">
+      <div class="product-card-banner banner-barca">🔵🔴</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">La Liga</span>
+        <h3>Club Pack — Barcelona</h3>
+        <p class="description">Mes que un club. The Blaugrana DNA — tiki-taka, La Masia, and a legacy of beautiful football. Wear the stripes of Camp Nou legends.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Barcelona jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Atletico Madrid -->
+    <div class="product-card">
+      <div class="product-card-banner banner-atletico">🦁</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">La Liga</span>
+        <h3>Club Pack — Atletico Madrid</h3>
+        <p class="description">Grit, heart and the Colchonero spirit. The red and white stripes of a club that fights for every ball — Simeone's warrior mentality in a jersey.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Atletico jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inter Milan -->
+    <div class="product-card">
+      <div class="product-card-banner banner-inter">⚫🔵</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">Serie A</span>
+        <h3>Club Pack — Inter Milan</h3>
+        <p class="description">The Nerazzurri — black and blue stripes synonymous with Milan's other greatness. From the Treble to modern glory, San Siro's finest.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Inter Milan jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chelsea -->
+    <div class="product-card">
+      <div class="product-card-banner banner-chelsea">🦁</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">Premier League</span>
+        <h3>Club Pack — Chelsea</h3>
+        <p class="description">The Pride of London. From Stamford Bridge to Champions League nights — the Blues' iconic kits blending West London heritage with global ambition.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Chelsea jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arsenal -->
+    <div class="product-card">
+      <div class="product-card-banner banner-arsenal">🔴⚪</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">Premier League</span>
+        <h3>Club Pack — Arsenal</h3>
+        <p class="description">The Gunners — North London's red and white. From Highbury to the Emirates, the spirit of the Invincibles lives on in every thread.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Arsenal jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manchester City -->
+    <div class="product-card">
+      <div class="product-card-banner banner-city">🩵</div>
+      <div class="product-card-body">
+        <span class="league-tag tag-club">Premier League</span>
+        <h3>Club Pack — Manchester City</h3>
+        <p class="description">Sky blue dominance. The Treble winners, Pep's masterclass — Manchester City's rise to the top captured in every jersey. Pure modern football.</p>
+        <div class="includes">
+          <strong>What's inside</strong>
+          1 authentic Man City jersey · Random season (2020-2026) · Home, away or third kit · Possible player print
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$49</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ── PREMIUM COLLECTOR PACK ── -->
+<!-- ════════════════════════════════════════════ -->
+<div class="category-section" id="premium">
+  <div class="category-section-title">Premium Collector Pack — $79</div>
+  <h2>For the true collectors</h2>
+  <p>Rare jerseys, limited editions, retro gems and legend prints. The ultimate mystery experience.</p>
+
+  <div class="sub-label"><span class="emoji">👑</span> Collector editions</div>
+
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-card-banner" style="background: linear-gradient(135deg, #FFD700 0%, #1A1A2E 50%, #B8860B 100%); height: 180px;">👑</div>
+      <div class="product-card-body">
+        <span class="league-tag" style="background: rgba(245,158,11,0.2); color: #FCD34D;">Premium</span>
+        <h3>Premium Collector Pack</h3>
+        <p class="description">The holy grail of mystery boxes. Rare jerseys from legendary seasons, limited edition runs, retro throwbacks, and player-signed prints. Each box is a piece of football history.</p>
+        <div class="includes">
+          <strong>What you might find</strong>
+          Retro classic jerseys · Limited edition kits · Player-era specials · International rarities · Collector-grade quality guaranteed
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$79</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-banner" style="background: linear-gradient(135deg, #9333EA 0%, #1A1A2E 50%, #6D28D9 100%); height: 180px;">⭐</div>
+      <div class="product-card-body">
+        <span class="league-tag" style="background: rgba(147,51,234,0.2); color: #C084FC;">Ultra Rare</span>
+        <h3>Legend Edition</h3>
+        <p class="description">A mystery pack curated around football's greatest icons. Each jersey is tied to a legendary player era — from the 90s golden age to the modern GOAT debate.</p>
+        <div class="includes">
+          <strong>What you might find</strong>
+          Iconic #10 jerseys · Retro World Cup kits · Champions League final editions · Anniversary specials
+        </div>
+        <div class="product-card-footer">
+          <div class="price">$79</div>
+          <button class="cta">Add to cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  © 2026 Goal Mystery Pack — All rights reserved
+</footer>
+
+<!-- ── TAB SWITCHING JS ── -->
+<script>
+  const tabs = document.querySelectorAll('.category-tab');
+  const sections = document.querySelectorAll('.category-section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.category-tabs').offsetTop - 60, behavior: 'smooth' });
+    });
+  });
+
+  // Handle hash on load
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById(hash)) {
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById(hash).classList.add('active');
+      document.querySelector(`[data-tab="${hash}"]`).classList.add('active');
+      setTimeout(() => {
+        window.scrollTo({ top: document.querySelector('.category-tabs').offsetTop - 60, behavior: 'smooth' });
+      }, 100);
+    }
+  });
+</script>
+
+</body>
+</html>
