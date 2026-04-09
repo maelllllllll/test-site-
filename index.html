@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goal Mystery Pack — One Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #B91C1C;
+    --deep-red: #7F1D1D;
+    --navy: #0F172A;
+    --electric-blue: #2563EB;
+    --royal-blue: #1D4ED8;
+    --white: #FFFFFF;
+    --off-white: #F8FAFC;
+    --gold: #F59E0B;
+    --light-gray: #E2E8F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--navy) 0%, #1E293B 40%, var(--deep-red) 100%);
+    overflow: hidden;
+    padding: 40px 20px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(185,28,28,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 8s ease-in-out infinite reverse;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* Diagonal stripe pattern */
+  .stripe-overlay {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(255,255,255,0.015) 80px,
+      rgba(255,255,255,0.015) 82px
+    );
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--crimson);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 8px 24px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 140px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 .accent {
+    color: var(--crimson);
+    display: block;
+  }
+
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px var(--electric-blue);
+    color: transparent;
+  }
+
+  .tagline {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    margin-top: 16px;
+    letter-spacing: 1px;
+  }
+
+  .tagline strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── SECTION SHARED ── */
+  section {
+    position: relative;
+    padding: 80px 20px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--electric-blue);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1;
+    margin-bottom: 32px;
+    text-transform: uppercase;
+  }
+
+  /* ── CONCEPT ── */
+  .concept {
+    background: linear-gradient(180deg, var(--navy) 0%, #111827 100%);
+  }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .concept-text p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+  }
+
+  .concept-text p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 20px 24px;
+    flex: 1;
+    text-align: center;
+  }
+
+  .stat-box .number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--crimson);
+    line-height: 1;
+  }
+
+  .stat-box .label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Mystery box visual */
+  .box-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mystery-card {
+    background: linear-gradient(135deg, rgba(37,99,235,0.12) 0%, rgba(185,28,28,0.12) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .mystery-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+
+  .card-icon.red { background: rgba(185,28,28,0.3); }
+  .card-icon.blue { background: rgba(37,99,235,0.3); }
+  .card-icon.gold { background: rgba(245,158,11,0.3); }
+
+  .card-info h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .card-info p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .card-price {
+    margin-left: auto;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    background: #111827;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 16px;
+  }
+
+  .step {
+    text-align: center;
+    padding: 40px 24px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+
+  .step-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: rgba(37,99,235,0.15);
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    line-height: 1;
+  }
+
+  .step-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .step h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── MARKET ── */
+  .market {
+    background: linear-gradient(180deg, #111827 0%, var(--navy) 100%);
+  }
+
+  .market-highlights {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .highlight {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  .highlight .icon { font-size: 32px; margin-bottom: 12px; }
+
+  .highlight h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .highlight p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  /* ── REVENUE ── */
+  .revenue {
+    background: var(--navy);
+  }
+
+  .revenue-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 15px;
+  }
+
+  .revenue-table thead th {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 14px 16px;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .revenue-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75);
+  }
+
+  .revenue-table tbody tr:last-child td {
+    border-bottom: 2px solid var(--crimson);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── TEAM / CONTACT ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--deep-red) 0%, var(--navy) 100%);
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(255,255,255,0.02) 60px,
+      rgba(255,255,255,0.02) 62px
+    );
+    pointer-events: none;
+  }
+
+  .cta-section .container { position: relative; z-index: 2; }
+
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .contact-item strong {
+    color: var(--white);
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .cta-button {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 16px 48px;
+    background: var(--crimson);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .cta-button:hover {
+    background: #DC2626;
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060A13;
+    padding: 24px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .concept-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .market-highlights { grid-template-columns: 1fr 1fr; }
+    .stat-row { flex-direction: column; }
+    .contact-info { flex-direction: column; gap: 24px; align-items: center; }
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    section { padding: 30px 20px; page-break-inside: avoid; }
+    .hero { min-height: auto; padding: 50px 20px; }
+    .hero::before, .hero::after, .stripe-overlay { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="stripe-overlay"></div>
+  <div class="hero-content">
+    <div class="badge">Mystery Box Football Jerseys</div>
+    <h1>
+      <span class="outline">GOAL</span>
+      <span class="accent">MYSTERY PACK</span>
+    </h1>
+    <p class="tagline">Open your box. Discover your jersey. Feel the <strong>thrill</strong> of football.</p>
+  </div>
+</section>
+
+<!-- ═══════════ CONCEPT ═══════════ -->
+<section class="concept">
+  <div class="container">
+    <div class="concept-grid">
+      <div class="concept-text">
+        <div class="section-label">The Concept</div>
+        <h2 class="section-title">Football jerseys<br>in a mystery box</h2>
+        <p>
+          <strong>Goal Mystery Pack</strong> reinvents the way people buy football jerseys by injecting the thrill of surprise. Each box contains an authentic jersey — the customer doesn't know which one they'll receive until they open it.
+        </p>
+        <p>
+          From local clubs to collector gems, every pack is an experience. Our model leverages the growing hype around <strong>mystery boxing</strong>, a format that's exploding on social media and driving exceptional engagement rates.
+        </p>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="number">+340%</div>
+            <div class="label">Mystery box market<br>growth EU (2022-2025)</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">$4.5B</div>
+            <div class="label">Global football<br>jersey market</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-showcase">
+        <div class="mystery-card">
+          <div class="card-icon red">⚽</div>
+          <div class="card-info">
+            <h4>Mystery Pack Classic</h4>
+            <p>1 random jersey from Europe's top leagues. Ligue 1, La Liga, Premier League, Serie A, Bundesliga.</p>
+          </div>
+          <div class="card-price">$39</div>
+        </div>
+        <div class="mystery-card">
+          <div class="card-icon blue">🏆</div>
+          <div class="card-info">
+            <h4>Club Pack</h4>
+            <p>Pick your favorite club — receive a surprise jersey from recent seasons. Home, away or third kit.</p>
+          </div>
+          <div class="card-price">$49</div>
+        </div>
+        <div class="mystery-card">
+          <div class="card-icon gold">👑</div>
+          <div class="card-info">
+            <h4>Premium Collector Pack</h4>
+            <p>Rare jerseys, limited editions, legend prints. Built for the true collectors.</p>
+          </div>
+          <div class="card-price">$79</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section class="how">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">3 steps, zero hassle</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-icon">📦</div>
+        <h4>Pick your pack</h4>
+        <p>Classic, Club or Premium — each format offers a different experience and a distinct rarity tier.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-icon">🎲</div>
+        <h4>We build your box</h4>
+        <p>Our algorithm selects an authentic jersey based on your chosen tier. Every shipment is unique and guaranteed official.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-icon">🔥</div>
+        <h4>Unbox & share</h4>
+        <p>Receive your box, film the opening, share on social media. User-generated content is our strongest marketing engine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MARKET ═══════════ -->
+<section class="market">
+  <div class="container">
+    <div class="section-label">Why Now</div>
+    <h2 class="section-title">A market ready to explode</h2>
+    <div class="market-highlights">
+      <div class="highlight">
+        <div class="icon">📱</div>
+        <h4>TikTok Virality</h4>
+        <p>Jersey unboxings rack up millions of views. A format that's native to social content.</p>
+      </div>
+      <div class="highlight">
+        <div class="icon">🎯</div>
+        <h4>Target: 16-30 y/o</h4>
+        <p>A generation that values experience, surprise and visual identity through sportswear.</p>
+      </div>
+      <div class="highlight">
+        <div class="icon">🔄</div>
+        <h4>Built-in Recurrence</h4>
+        <p>New seasons = new jerseys = new boxes. The football cycle fuels demand year-round.</p>
+      </div>
+      <div class="highlight">
+        <div class="icon">💰</div>
+        <h4>Strong Margins</h4>
+        <p>Volume sourcing, optimized product mix. The surprise factor enables margins above traditional retail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ REVENUE MODEL ═══════════ -->
+<section class="revenue">
+  <div class="container">
+    <div class="section-label">Projections</div>
+    <h2 class="section-title">Revenue Model — Year 1</h2>
+    <table class="revenue-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Avg. Price</th>
+          <th>Gross Margin</th>
+          <th>Volume / month (M12 target)</th>
+          <th>Monthly Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mystery Pack Classic</td>
+          <td>$39</td>
+          <td>~55%</td>
+          <td>300</td>
+          <td>$11,700</td>
+        </tr>
+        <tr>
+          <td>Club Pack</td>
+          <td>$49</td>
+          <td>~50%</td>
+          <td>200</td>
+          <td>$9,800</td>
+        </tr>
+        <tr>
+          <td>Premium Collector Pack</td>
+          <td>$79</td>
+          <td>~45%</td>
+          <td>80</td>
+          <td>$6,320</td>
+        </tr>
+        <tr>
+          <td><strong>M12 TARGET TOTAL</strong></td>
+          <td>—</td>
+          <td>~51%</td>
+          <td>580</td>
+          <td><strong>$27,820</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ CTA / CONTACT ═══════════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Ready to kick off?</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <strong>Email</strong>
+        contact@goalmysterypack.com
+      </div>
+      <div class="contact-item">
+        <strong>Instagram</strong>
+        @goalmysterypack
+      </div>
+      <div class="contact-item">
+        <strong>Location</strong>
+        Paris, France
+      </div>
+    </div>
+    <a href="#" class="cta-button">Discover our packs →</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Goal Mystery Pack — All rights reserved
+</footer>
+
+</body>
+</html>
