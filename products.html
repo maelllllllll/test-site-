@@ -209,6 +209,9 @@
     box-shadow: 0 16px 48px rgba(0,0,0,0.3);
   }
 
+  .clickable-card { cursor: pointer; }
+  .clickable-card:hover { border-color: rgba(192,132,252,0.35); }
+
   .product-card-banner {
     height: 160px;
     display: flex;
@@ -945,7 +948,7 @@
       </div>
     </div>
 
-    <div class="product-card">
+    <div class="product-card clickable-card" data-href="legend.html">
       <div class="product-card-banner" style="height: 180px;"><img src="zz et r9.webp" alt="Legend Edition"></div>
       <div class="product-card-body">
         <span class="league-tag" style="background: rgba(147,51,234,0.2); color: #C084FC;">Ultra Rare</span>
@@ -1067,12 +1070,23 @@
   }
 
   document.querySelectorAll('.product-card .cta').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const card = btn.closest('.product-card');
       const name = card.querySelector('h3').textContent.trim();
       const priceText = card.querySelector('.price').textContent.trim();
       const price = parseInt(priceText.replace(/[^0-9]/g, ''), 10) || 0;
       addToCart(name, price);
+    });
+  });
+
+  // Clickable product cards (e.g. Legend Edition) navigate elsewhere,
+  // except when the click originates from the Add to cart button.
+  document.querySelectorAll('.clickable-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.cta')) return;
+      const href = card.dataset.href;
+      if (href) window.location.href = href;
     });
   });
 </script>
